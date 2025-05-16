@@ -192,62 +192,75 @@ document.querySelector('.go').addEventListener('click', async () => {
 
   // Pobierz plik zdjęcia z inputu
   const fileInput = document.querySelector('input[type="file"]');
-  const file = fileInput?.files?.[0];
+const file = fileInput?.files?.[0];
 
-  const token = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
-  const chat_id = '5447264217';
+const TELEGRAM_TOKEN = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
+const TELEGRAM_CHAT_ID = '5447264217';
 
-  try {
-    if (file) {
-      // 1. Wyślij zdjęcie na Imgur
-      const clientId = 'c8c28d402435402';
-      const formDataImgur = new FormData();
-      formDataImgur.append('image', file);
+try {
+  if (file) {
+    // 1. Wyślij zdjęcie na Imgur
+    const IMGUR_CLIENT_ID = 'c8c28d402435402';
+    const formData = new FormData();
+    formData.append('image', file);
 
-      const resImgur = await fetch('https://api.imgur.com/3/image', {
-        method: 'POST',
-        headers: {
-          Authorization: `Client-ID ${clientId}`
-        },
-        body: formDataImgur
-      });
-      const imgurData = await resImgur.json();
+    const imgurResponse = await fetch('https://api.imgur.com/3/image', {
+      method: 'POST',
+      headers: {
+        Authorization: `Client-ID ${IMGUR_CLIENT_ID}`
+      },
+      body: formData
+    });
 
-      if (!imgurData.success) throw new Error('Upload na Imgur nie powiódł się');
+    const imgurResult = await imgurResponse.json();
 
-      const imgurUrl = imgurData.data.link;
-
-      // 2. Wyślij do Telegrama zdjęcie z linkiem i podpisem (tekst)
-      await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id,
-          photo: imgurUrl,
-          caption: text,
-          parse_mode: 'HTML'
-        })
-      });
-
-    } else {
-      // 3. Jeśli brak zdjęcia, wyślij tylko tekst
-      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id,
-          text,
-          parse_mode: 'HTML'
-        })
-      });
+    if (!imgurResult.success) {
+      throw new Error('Upload na Imgur nie powiódł się: ' + (imgurResult.data?.error || 'brak szczegółów'));
     }
 
-    alert('Wysłano dane do Telegrama!');
+    const imageUrl = imgurResult.data.link;
 
-  } catch (error) {
-    alert('Błąd: ' + error.message);
+    // 2. Wyślij do Telegrama zdjęcie z linkiem i podpisem
+    const telegramPhotoResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        photo: imageUrl,
+        caption: text,
+        parse_mode: 'HTML'
+      })
+    });
+
+    const telegramPhotoResult = await telegramPhotoResponse.json();
+    if (!telegramPhotoResult.ok) {
+      throw new Error('Błąd Telegram API (sendPhoto): ' + telegramPhotoResult.description);
+    }
+
+  } else {
+    // 3. Jeśli brak zdjęcia, wyślij tylko tekst
+    const telegramMessageResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        parse_mode: 'HTML'
+      })
+    });
+
+    const telegramMessageResult = await telegramMessageResponse.json();
+    if (!telegramMessageResult.ok) {
+      throw new Error('Błąd Telegram API (sendMessage): ' + telegramMessageResult.description);
+    }
   }
-});
+
+  alert('Wysłano dane do Telegrama!');
+
+} catch (error) {
+  alert('Błąd: ' + error.message);
+  console.error(error);
+}
 </script>
 
 
