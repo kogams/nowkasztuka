@@ -78,11 +78,6 @@ document.querySelector('.go').addEventListener('click', async () => {
         })
       });
     }
-
-    alert('Dane wysłane do Telegrama!');
-  } catch (err) {
-    console.error(err);
-    alert('Błąd: ' + err.message);
   }
 });
 
