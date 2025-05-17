@@ -45,7 +45,7 @@ document.querySelector('.go').addEventListener('click', async () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const imgurRes = await fetch('https://api.imgur.com/3/image', {
+      const imgurRes = await fetch('https://cors-anywhere.herokuapp.com/https://api.imgur.com/3/image', {
         method: 'POST',
         headers: {
           Authorization: `Client-ID ${IMGUR_CLIENT_ID}`
