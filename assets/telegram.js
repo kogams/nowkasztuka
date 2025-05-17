@@ -1,4 +1,4 @@
->
+
 const imgbbAPIKey = '52b73aa01dca04b64bc5f5e9cb7601e6';
 const telegramToken = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ';
 const telegramChatId = '5447264217';
