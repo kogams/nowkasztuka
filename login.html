@@ -68,61 +68,60 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest"></script>
 
   <!-- Potem twój kod -->
-  <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-      // Sprawdź, czy Supabase jest załadowane
-      if (!window.supabase) {
-        console.error('Supabase is not loaded correctly!');
-        return;
-      }
-      
-      // 👇 inicjalizacja klienta Supabase
-      const supabase = window.supabase.createClient(
-        'https://swvpxceqozxqndqrboov.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnB4Y2Vxb3p4cW5kcXJib292Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc0Mzk0MDMsImV4cCI6MjA2MzAxNTQwM30.nEy5ROQRVv_6pxcBtKTAj3Qx4rdLzRX9ikIXJqK77bQ'
-      );
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.42.5/+esm" type="module"></script>
 
-      const form = document.getElementById('loginForm');
-      const errorMessage = document.getElementById('error-message');
+<!-- Twój kod -->
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.42.5/+esm';
 
-      form.addEventListener('submit', async function (event) {
-        event.preventDefault();
-        const password = document.getElementById('password').value;
-        errorMessage.style.display = 'none';
+  // Inicjalizacja Supabase
+  const supabaseUrl = 'https://swvpxceqozxqndqrboov.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnB4Y2Vxb3p4cW5kcXJib292Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc0Mzk0MDMsImV4cCI6MjA2MzAxNTQwM30.nEy5ROQRVv_6pxcBtKTAj3Qx4rdLzRX9ikIXJqK77bQ';
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
-        try {
-          const { data, error } = await supabase
-            .from('passwords')
-            .select('*')
-            .eq('password', password)
-            .eq('used', false)
-            .single();
+  // Obsługa formularza
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('error-message');
 
-          if (error || !data) {
-            errorMessage.style.display = 'block';
-            return;
-          }
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const password = document.getElementById('password').value;
+      errorMessage.style.display = 'none';
 
-          const { error: updateError } = await supabase
-            .from('passwords')
-            .update({ used: true })
-            .eq('id', data.id);
+      try {
+        const { data, error } = await supabase
+          .from('passwords')
+          .select('*')
+          .eq('password', password)
+          .eq('used', false)
+          .maybeSingle(); // może zwrócić null bez błędu
 
-          if (updateError) {
-            console.error('Error updating password:', updateError);
-            errorMessage.style.display = 'block';
-            return;
-          }
-
-          sessionStorage.setItem('loggedIn', 'true');
-          window.location.href = 'index.html';
-        } catch (err) {
-          console.error('Error processing login:', err);
+        if (error || !data) {
           errorMessage.style.display = 'block';
+          return;
         }
-      });
+
+        const { error: updateError } = await supabase
+          .from('passwords')
+          .update({ used: true })
+          .eq('id', data.id);
+
+        if (updateError) {
+          console.error('Błąd przy aktualizacji hasła:', updateError);
+          errorMessage.style.display = 'block';
+          return;
+        }
+
+        sessionStorage.setItem('loggedIn', 'true');
+        window.location.href = 'index.html';
+      } catch (err) {
+        console.error('Błąd logowania:', err);
+        errorMessage.style.display = 'block';
+      }
     });
-  </script>
+  });
+</script>
   
 </body>
 </html>
