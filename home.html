@@ -50,15 +50,39 @@
             <button class="main_button">Dodaj</button>
             <button class="main_button all_documents" onclick="sendTo('documents')">Wszystkie</button>
         </div>
-        <div class="card" onclick="sendTo('card', null, 'home')">
-            <img class="background" src="https://fobywatel.xyz/assets/app/images/card_background.png">
-            <img class="human" src="https://fobywatel.xyz/assets/app/images/human.png">
-            <div class="id_bottom">
-                <p class="name">mDowód</p>
-                <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
-            </div>
-        </div>
-        <div class="card_below_grid">
+      <div class="cards-container">
+  <!-- Karta 1 -->
+  <div class="card" onclick="sendTo('card', null, 'home')">
+    <img class="background" src="https://fobywatel.xyz/assets/app/images/card_background.png">
+    <img class="human" src="https://fobywatel.xyz/assets/app/images/human.png">
+    <div class="id_bottom">
+      <p class="name">mDowód</p>
+      <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
+    </div>
+  </div>
+
+  <!-- Karta 2 -->
+  <div class="card" onclick="sendTo('card2', null, 'home')">
+    <img class="background" src="assets/leg_studencka_bg_big.webp">
+    <img class="student" src="assets/student.png"> 
+    <div class="id_bottom">
+      <p class="name">Legitymacja Studencka</p>
+      <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
+    </div>
+  </div>
+
+  <!-- Karta 3 -->
+  <div class="card" onclick="sendTo('card3', null, 'home')">
+    <img class="background" src="assets/kdr.webp">
+    <img class="student" src="assets/kdr.svg"> 
+    <div class="id_bottom">
+      <p class="name">Karta Dużej Rodziny</p>
+      <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
+    </div>
+  </div>
+</div>
+      </div>
+        <div class="card_below_grid" style="width: 483.297;">
             <p class="title">Usługi</p>
             <button class="main_button all_services" onclick="sendTo('services')">Wszystkie</button>
         </div>
