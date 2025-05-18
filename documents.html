@@ -4,7 +4,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="https://fobywatel.xyz/assets/app/documents.css">
+    <link rel="stylesheet" href="documents.css">
     <link rel="stylesheet" href="https://fobywatel.xyz/assets/app/main.css">
     <link rel="stylesheet" href="https://fobywatel.xyz/assets/app/flow.css">
     <link rel="icon" type="image/x-icon" href=https://fobywatel.xyz/assets/app/images/logo.png">
@@ -53,11 +53,35 @@
             <input class="search" placeholder="Szukaj">
         </div>
         <p class="title" style="margin-top: 30px;">Na pulpicie</p>
-        <div class="card" onclick="sendTo('card', null, 'documents')">
-            <img class="human" src="https://fobywatel.xyz/assets/app/images/human.png">
-            <p class="title" style="font-size: 20px;">mDowód</p>
-            <img class="arrow" src="https://fobywatel.xyz/assets/app/images/arrow_light.png">
-        </div>
+        <div class="cards-container">
+  <!-- Karta 1: mDowód -->
+  <div class="card" onclick="sendTo('card', null, 'documents')">
+    <img class="human" src="https://fobywatel.xyz/assets/app/images/human.png">
+    <p class="title" style="font-size: 20px;">mDowód</p>
+    <img class="arrow" src="https://fobywatel.xyz/assets/app/images/arrow_light.png">
+  </div>
+
+  <!-- Karta 2: Legitymacja Studencka -->
+  <div class="card" onclick="sendTo('card', null, 'documents')">
+    <img class="student" src="images/student.png">
+    <p class="title" style="font-size: 20px;">Legitymacja Studencka</p>
+    <img class="arrow" src="https://fobywatel.xyz/assets/app/images/arrow_light.png">
+  </div>
+
+  <!-- Karta 3: Karta Dużej Rodziny -->
+  <div class="card" onclick="sendTo('card', null, 'documents')">
+    <img class="human" src="images/kdr.svg">
+    <p class="title" style="font-size: 20px;">Karta Dużej Rodziny</p>
+    <img class="arrow" src="https://fobywatel.xyz/assets/app/images/arrow_light.png">
+  </div>
+
+  <!-- Karta 4: Moje Pojazdy -->
+  <div class="card" onclick="sendTo('card', null, 'documents')">
+    <img class="human" src="images/mpojazd.svg">
+    <p class="title" style="font-size: 20px;">Moje Pojazdy</p>
+    <img class="arrow" src="https://fobywatel.xyz/assets/app/images/arrow_light.png">
+  </div>
+</div>
         <p class="title">Pozostałe</p>
         <div class="other">
             <p class="other_title">Chcesz przenieść tu dokument z pulpitu?</p>

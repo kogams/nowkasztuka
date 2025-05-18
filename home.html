@@ -1,12 +1,12 @@
 <head>
     <title>mObywatel</title>
     <meta charset="UTF-8">
-    <base href="/nowkasztuka/">
+    <base href="">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="assets/home.css">
-    <link rel="stylesheet" href="https://fobywatel.xyz/assets/app/main.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="main.css">
     <link rel="icon" type="image/x-icon" href="https://fobywatel.xyz/assets/app/images/logo.png">
     <link rel="apple-touch-icon" href="https://fobywatel.xyz/assets/app/images/logo.png">
     <link rel="shortcut icon" href="https://fobywatel.xyz/assets/app/images/logo.png">
@@ -42,8 +42,8 @@
 
     <div class="container">
         <div class="top_grid">
-            <img src="https://fobywatel.xyz/assets/app/images/logo_rounded.png" class="top_image">
-            <img src="https://fobywatel.xyz/assets/app/images/bell.png" class="top_image right">
+            <img src="images/logo_rounded.png" class="top_image">
+            <img src="images/bell.png" class="top_image right">
         </div>
         <div class="card_grid">
             <p class="title">Dokumenty</p>
@@ -53,34 +53,44 @@
       <div class="cards-container">
   <!-- Karta 1 -->
   <div class="card" onclick="sendTo('card', null, 'home')">
-    <img class="background" src="https://fobywatel.xyz/assets/app/images/card_background.png">
-    <img class="human" src="https://fobywatel.xyz/assets/app/images/human.png">
+    <img class="background" src="images/card_background.png">
+    <img class="human" src="images/human.png">
     <div class="id_bottom">
       <p class="name">mDowód</p>
-      <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
+      <img class="arrow" src="images/right_arrow_sharp.png">
     </div>
   </div>
 
   <!-- Karta 2 -->
-  <div class="card" onclick="sendTo('card2', null, 'home')">
-    <img class="background" src="assets/leg_studencka_bg_big.webp">
-    <img class="student" src="assets/student.png"> 
+  <div class="card" onclick="sendTo('card', null, 'home')">
+    <img class="background" src="images/leg_studencka_bg_big.webp">
+    <img class="student" src="images/student.png"> 
     <div class="id_bottom">
       <p class="name">Legitymacja Studencka</p>
-      <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
+      <img class="arrow" src="images/right_arrow_sharp.png">
     </div>
   </div>
 
   <!-- Karta 3 -->
-  <div class="card" onclick="sendTo('card3', null, 'home')">
-    <img class="background" src="assets/kdr.webp">
-    <img class="student" src="assets/kdr.svg"> 
+  <div class="card" onclick="sendTo('card', null, 'home')">
+    <img class="background" src="images/kdr.webp">
+    <img class="student" src="images/kdr.svg"> 
     <div class="id_bottom">
       <p class="name">Karta Dużej Rodziny</p>
-      <img class="arrow" src="https://fobywatel.xyz/assets/app/images/right_arrow_sharp.png">
+      <img class="arrow" src="images/right_arrow_sharp.png">
     </div>
   </div>
-</div>
+
+
+<div class="card" onclick="sendTo('card', null, 'home')">
+    <img class="background" src="images/mpojazd.webp">
+    <img class="student" src="images/mpojazd.svg"> 
+    <div class="id_bottom">
+      <p class="name">Moje Pojazdy</p>
+      <img class="arrow" src="images/right_arrow_sharp.png">
+    </div>
+  </div>
+
       </div>
         <div class="card_below_grid" style="width: 483.297;">
             <p class="title">Usługi</p>
@@ -88,33 +98,33 @@
         </div>
         <div class="services_grid">
             <div class="service_box">
-                <img class="service_box_icon" src="https://fobywatel.xyz/assets/app/images/safe_in_web.png">
+                <img class="service_box_icon" src="images/safe_in_web.png">
                 <p class="service_box_name">Bezpiecznie w sieci</p>
             </div>
             <div class="service_box">
-                <img class="service_box_icon" src="https://fobywatel.xyz/assets/app/images/vehicle.png">
+                <img class="service_box_icon" src="images/vehicle.png">
                 <p class="service_box_name">Historia pojazdu</p>
             </div>
             <div class="service_box">
-                <img class="service_box_icon" src="https://fobywatel.xyz/assets/app/images/pesel.png">
+                <img class="service_box_icon" src="images/pesel.png">
                 <p class="service_box_name">Zastrzeż PESEL</p>
             </div>
             <div class="service_box">
-                <img class="service_box_icon" src="https://fobywatel.xyz/assets/app/images/business.png">
+                <img class="service_box_icon" src="images/business.png">
                 <p class="service_box_name">Firma</p>
             </div>
             <div class="service_box">
-                <img class="service_box_icon" src="https://fobywatel.xyz/assets/app/images/penalties.png">
+                <img class="service_box_icon" src="images/penalties.png">
                 <p class="service_box_name">Punkty karne</p>
             </div>
             <div class="service_box">
-                <img class="service_box_icon" src="https://fobywatel.xyz/assets/app/images/tickets.png">
+                <img class="service_box_icon" src="images/tickets.png">
                 <p class="service_box_name">Mandaty</p>
             </div>
         </div>
     </div>
     
-    <script src="assets/bar.js"></script>
+    <script src="bar.js"></script>
     <script src="https://fobywatel.xyz/assets/app/manifest.js"></script>
     <script src="https://fobywatel.xyz/assets/app/cache.js"></script>
 </body>
