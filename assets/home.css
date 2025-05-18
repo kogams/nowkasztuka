@@ -1,3 +1,9 @@
+body{
+    background-color: var(--background);
+    margin: 0;
+    overflow-x: hidden;
+}
+
 .top_grid{
     display: grid;
     grid-template-columns: 50% 50%;
