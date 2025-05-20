@@ -18,8 +18,7 @@
 .card_grid{
     width: 100%;
     display: grid;
-    margin-bottom: 3px;
-    grid-template-columns: 38% 31% 31%;
+    grid-template-columns: 50% 25% 25%;
 }
 
 .card_grid .main_button{
@@ -27,7 +26,7 @@
 }
 
 .title{
-    font-size: 23px;
+    font-size: 20px;
     font-weight: 500;
 }
 
@@ -37,8 +36,8 @@
     position: relative;
     overflow: hidden;
     border-radius: 15px;
-    height: 250px;
-    width: 400px;
+    height: 230px;
+    width: 370px;
     background-color: white;
 }
 
@@ -51,7 +50,7 @@
     position: absolute;
     width: 100%;
     background-color: white;
-    height: 70px;
+    height: 60px;
     bottom: 0;
     left: 0;
     display: grid;
@@ -63,7 +62,7 @@
     height: max-content;
     margin-top: auto;
     margin-bottom: auto;
-    font-size: 23px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -71,7 +70,7 @@
     position: absolute;
     top: 28px;
     left: 28px;
-    width: 40px;
+    width: 35px;
 }
 
 .arrow{
@@ -87,7 +86,6 @@
     grid-template-columns: 50% 50%;
     width: 100%;
     height: max-content;
-    margin-top: 5px;
 }
 
 .card_below_grid .main_button{
@@ -112,36 +110,16 @@
     margin-bottom: auto;
 }
 
-.service_icon_shadow{
-    width: max-content;
-    height: max-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    filter: drop-shadow(var(--shadow));
-}
-
-.service_icon_wrapper{
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    clip-path: path('M 0 50 C 0 3.4999999999999973, 3.4999999999999973 0, 50 0 S 100 3.4999999999999973, 100 50, 96.5 100 50 100, 0 96.5, 0 50');
-    position: relative;
-}
-
 .service_box_icon{
+    box-shadow: var(--shadow);
     width: 50px;
-    height: 50px;
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
     display: block;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: absolute;
+    margin-top: 10px;
 }
 
 .service_box_name{
